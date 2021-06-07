@@ -62,6 +62,8 @@ export default function BodyItem(props) {
         </button>
       </div>
       <div className="row">{listItems}</div>
+
     </div>
+    
   );
 }

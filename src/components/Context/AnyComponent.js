@@ -26,11 +26,9 @@ class AnyComponent extends Component {
               <option value={t}> {t}</option>
             ))}
           </select>
-          <div>
-              Selected theme: {this.state.theme}
-          </div>
-          <ThemeContext.Provider value = {this.state.theme}>
-              <ThemedButton theme={this.state.theme}/>
+          <div>Selected theme: {this.state.theme}</div>
+          <ThemeContext.Provider value={this.state.theme}>
+            <ThemedButton theme={this.state.theme} />
           </ThemeContext.Provider>
         </React.Fragment>
       </div>

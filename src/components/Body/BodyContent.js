@@ -1,47 +1,44 @@
 import React, { useState } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { Button, Card} from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import BodyItem from "./BodyItem";
 import BodyItemClass from "./BodyItemClass";
-import { FaAlignCenter, FaCheck, FaEdit, FaTimes } from "react-icons/fa";
+import { FaEdit, FaTimes } from "react-icons/fa";
 
 export default function BodyContent(props) {
-  const { onSubmit } = props;
+  const { onAdd } = props;
   const [name, setName] = useState("");
   const [team, setTeam] = useState("");
   const [task, setTask] = useState("");
   const [status, setStatus] = useState("");
-  const {taskLists, onTaskListClick } = props;
-  function handleChangeName(e) {
-    console.log(e.target.value);
-    setName(e.target.value);
-  }
-  function handleChangeTeam(e) {
-    console.log(e.target.value);
-    setTeam(e.target.value);
-  }
-  function handleChangeTask(e) {
-    console.log(e.target.value);
-    setTask(e.target.value);
-  }
-  function handleChangeStatus(e) {
-    console.log(e.target.value);
-    setStatus(e.target.value);
-  }
-  function handleSubmit(e) {
+  const { taskLists, onTaskListClick } = props;
+  // function handleSubmit(e) {
+  //   e.preventDefault();
+  //   const formValues = {
+  //     name: name,
+  //     team: team,
+  //     task: task,
+  //     status: status,
+  //   };
+  //   onSubmit(formValues);
+  // }
+  const onSubmit = (e) => {
     e.preventDefault();
-    const formValues = {
-      name: name,
-      team: team,
-      task: task,
-      status: status,
-    };
-    onSubmit(formValues);
-  }
-  function handleDelete(task){
+    if (!name) {
+      alert("Vui long nhap");
+      return;
+    }
+    onAdd({ name, team, task, status });
+
+    setName("");
+    setTeam("");
+    setTask("");
+    setStatus("");
+  };
+  function handleDelete(task) {
     onTaskListClick(task);
   }
- 
+
   return (
     <div>
       <Accordion>
@@ -68,12 +65,12 @@ export default function BodyContent(props) {
               <Card.Body>
                 <Card.Title>Form Example </Card.Title>
                 <Card.Text>
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={onSubmit}>
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">Nhap Ten</label>
                       <input
                         value={name}
-                        onChange={handleChangeName}
+                        onChange={(e) => setName(e.target.value)}
                         className="form-control"
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
@@ -84,7 +81,7 @@ export default function BodyContent(props) {
                       <label htmlFor="exampleInputEmail1">Nhap Team</label>
                       <input
                         value={team}
-                        onChange={handleChangeTeam}
+                        onChange={(e) => setTeam(e.target.value)}
                         className="form-control"
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
@@ -95,7 +92,7 @@ export default function BodyContent(props) {
                       <label htmlFor="exampleInputEmail1">Nhap Task</label>
                       <input
                         value={task}
-                        onChange={handleChangeTask}
+                        onChange={(e) => setTask(e.target.value)}
                         className="form-control"
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
@@ -104,14 +101,14 @@ export default function BodyContent(props) {
                     </div>
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1">Trang Thai</label>
-                      <input
+                      <select
                         value={status}
-                        onChange={handleChangeStatus}
+                        onChange={(e) => setStatus(e.target.value)}
                         className="form-control"
-                        id="exampleInputEmail1"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter Status"
-                      />
+                      >
+                        <option selected>Started</option>
+                        <option>Ongoing </option>
+                      </select>
                     </div>
                     <button
                       style={{ float: "right" }}
@@ -141,14 +138,15 @@ export default function BodyContent(props) {
                               <td>{task.name}</td>
                               <td>{task.team}</td>
                               <td>{task.task}</td>
-                              <td>{task.ttatus}</td>
-                              
+                              <td>{task.status}</td>
+
                               <td>
                                 <FaEdit
                                   style={{ color: "green", cursor: "pointer" }}
                                 />{" "}
                                 &nbsp;
-                                <FaTimes onClick={() => handleDelete(task)}
+                                <FaTimes
+                                  onClick={() => handleDelete(task.id)}
                                   style={{ color: "red", cursor: "pointer" }}
                                 />
                               </td>

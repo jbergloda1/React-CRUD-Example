@@ -2,7 +2,6 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FormControl, Form, Button, Nav, NavDropdown } from "react-bootstrap";
-import { Router, Route, NavLink } from "react-router-dom";
 import About from "../About/About";
 
 export default function Header() {
