@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Button, Card} from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import BodyItem from "./BodyItem";
 import BodyItemClass from "./BodyItemClass";
 import { FaEdit, FaTimes } from "react-icons/fa";
+import { useToast } from "../Context/Toast/Toast";
 
 export default function BodyContent(props) {
   const { onAdd } = props;
@@ -11,6 +12,8 @@ export default function BodyContent(props) {
   const [team, setTeam] = useState("");
   const [task, setTask] = useState("");
   const [status, setStatus] = useState("");
+  const { error, warn, info, success } = useToast();
+  const [checked, setChecked] = useState("");
   const { taskLists, onTaskListClick } = props;
   // function handleSubmit(e) {
   //   e.preventDefault();
@@ -24,19 +27,36 @@ export default function BodyContent(props) {
   // }
   const onSubmit = (e) => {
     e.preventDefault();
-    if (!name) {
-      alert("Vui long nhap");
-      return;
-    }
-    onAdd({ name, team, task, status });
+    try {
+      if (!name) {
+        alert("Vui long nhap");
+        return;
+      }
+      onAdd({ name, team, task, status });
 
-    setName("");
-    setTeam("");
-    setTask("");
-    setStatus("");
+      setName("");
+      setTeam("");
+      setTask("");
+      setStatus("");
+      success("Them Thanh Cong");
+    } catch (error) {
+      error("Khong the them!");
+    }
   };
   function handleDelete(task) {
-    onTaskListClick(task);
+    try {
+      onTaskListClick(task);
+      error("Xoa thanh cong!");
+    } catch (error) {
+      error("Khong the xoa!");
+    }
+  }
+  function handleChecked(e) {
+    if (e === checked) {
+      warn("Checked");
+    } else {
+      warn("Unchecked");
+    }
   }
 
   return (
@@ -45,11 +65,27 @@ export default function BodyContent(props) {
         <Card>
           <BodyItemClass />
           <Card.Header>
-            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+            <Accordion.Toggle
+              onClick={() => info("show")}
+              as={Button}
+              variant="link"
+              eventKey="0"
+            >
               Xem Them
             </Accordion.Toggle>
           </Card.Header>
           <Accordion.Collapse eventKey="0">
+            <BodyItem name image="dasdas" bname="Details" />
+          </Accordion.Collapse>
+        </Card>
+        <Card>
+          <BodyItemClass />
+          <Card.Header>
+            <Accordion.Toggle as={Button} variant="link" eventKey="2">
+              Xem Them
+            </Accordion.Toggle>
+          </Card.Header>
+          <Accordion.Collapse eventKey="2">
             <BodyItem name image="dasdas" bname="Details" />
           </Accordion.Collapse>
         </Card>
@@ -142,6 +178,9 @@ export default function BodyContent(props) {
 
                               <td>
                                 <FaEdit
+                                  onClick={() =>
+                                    error("chua lam chuc nang nay!")
+                                  }
                                   style={{ color: "green", cursor: "pointer" }}
                                 />{" "}
                                 &nbsp;
@@ -157,6 +196,8 @@ export default function BodyContent(props) {
                     </div>
                     <div className="form-group form-check">
                       <input
+                        onChange={(e) => setChecked(e.target.checked)}
+                        onClick={handleChecked}
                         type="checkbox"
                         className="form-check-input"
                         id="exampleCheck1"

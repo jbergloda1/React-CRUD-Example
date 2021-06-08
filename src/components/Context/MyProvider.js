@@ -9,7 +9,7 @@ export default class MyProvider extends Component {
       <MyContext.Provider
         value={{
           state: this.state,
-          setMessage: (value) =>
+          setValue: (value) =>
             this.setState({
               message: value,
             }),

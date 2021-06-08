@@ -3,7 +3,6 @@ import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FormControl, Form, Button, Nav, NavDropdown } from "react-bootstrap";
 import About from "../About/About";
-
 export default function Header() {
   return (
     <div>

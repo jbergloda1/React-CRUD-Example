@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 export default function UseEffect() {
-    const [count, setCount] = useState(0);
+  const [count, setCount] = useState(0);
+  const handleClick = () => setCount(count + 1);
 
-    useEffect(() => {
-        document.title = `You clicked ${count} times`;
-    });
-    return (
-        <div>
-            <div>-----------</div>
-            <p>USE EFFECT HOOK</p>
-            <h1>{count}</h1>
-            <button onClick={() => setCount(count + 1)}>
-                Count Up to the Moon
-            </button>
-        </div>
-    )
+  useEffect(() => {
+    document.title = "Count is: " + count;
+  }, [count]);
+  return (
+    <div>
+      <p>USE EFFECT HOOK</p>
+      <h1>{count}</h1>
+      <button onClick={handleClick}>Count Up</button>
+    </div>
+  );
 }

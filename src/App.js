@@ -11,7 +11,13 @@ import Pagination from "./components/Body/Pagination";
 import MyProvider from "./components/Context/MyProvider";
 import Child1 from "./components/Context/Child1";
 import Child2 from "./components/Context/Child2";
-import Count from "./components/hoc/Count";
+import Count1 from "./components/hoc/Count1";
+import Count2 from "./components/hoc/Count2";
+import App2 from "./components/Context/csCon";
+import Child from "./components/Context/Child";
+import ToastExmp from "./components/Body/ToastExmp";
+import { ToastProvider } from "./components/Context/Toast/ToastProvider";
+import Button from "./components/Context/Toast/Button";
 function App() {
   const [taskList, setTaskList] = useState([
     // {
@@ -105,24 +111,64 @@ function App() {
       <Header />
 
       <HeaderSlide />
-      <BodyContent
-        taskLists={taskList}
-        onTaskListClick={handleDelete}
-        onAdd={addTask}
-      />
-      <MyProvider>
-        
-         <Child1/>
-         <Child2/>
-        
-      </MyProvider>
-      {/* <App2 /> */}
-      <Count/>
-      <Pagination pagination={pagination} onPageChange={handlePageChange} />
-      <Calculator />
-      <StateEX />
-      <HandingEventEx />
-      <UseEffect />
+      <ToastProvider>
+        <BodyContent
+          taskLists={taskList}
+          onTaskListClick={handleDelete}
+          onAdd={addTask}
+        />
+      </ToastProvider>
+
+      <div className="row">
+        <div className="col-md-4">
+          <MyProvider>
+            <Child />
+            <Child1 />
+            <Child2 />
+          </MyProvider>
+        </div>
+        <div className="col-md-4">
+          <App2 />
+        </div>
+        <div className="col-md-4">
+          <div>
+            <Count1 />
+            <Count2 />
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-4">
+          <UseEffect />
+        </div>
+        <div className="col-md-4">
+          <Pagination pagination={pagination} onPageChange={handlePageChange} />
+        </div>
+        <div className="col-md-4">
+          <div>
+            <Calculator />
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-4">
+          <StateEX />
+        </div>
+        <div className="col-md-4">
+          <HandingEventEx />
+        </div>
+        <div className="col-md-4">
+          <div>
+            <UseEffect />
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-md-6">
+          <ToastExmp />
+        </div>
+        <div className="col-md-6"></div>
+      </div>
     </div>
   );
 }

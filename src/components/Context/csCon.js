@@ -3,10 +3,16 @@ import React, { useContext, useState } from "react";
 const MyContext = React.createContext(null);
 function A() {
   const { input } = useContext(MyContext);
+  const [inputParent, setInputParent] = useState(null);
   return (
     <div>
       <div>
-        <span className="badge badge-success">{input}</span>
+        <input
+          value={input}
+          value1={inputParent}
+          onChange={(e) => setInputParent(e.target.value)}
+          type="text"
+        ></input>
       </div>
     </div>
   );
@@ -47,13 +53,20 @@ function App2() {
 
   return (
     <MyContext.Provider value={{ input, onChange: setInput }}>
+      <p> DEMO useContext</p>
+      <p>----------------</p>
       <div>
+        <p>Context Cha</p>
         <A />
+
+        <p>------------------</p>
+        <p>Context Con 1</p>
         <B />
-        <button className="btn btn-primary">click</button>
+
+        <p>Context Con 2</p>
         <C />
-        <button className="btn btn-success">click</button>
       </div>
+      <p> ------------------</p>
     </MyContext.Provider>
   );
 }

@@ -1,25 +1,26 @@
+
 import React from 'react'
 
-export default function withData(Wrapcomponent,) {
-    class HigherComponent extends React.Component{
-        constructor(props){
+const HOC = (Component) =>{
+    return class extends React.Component{
+        constructor(props) {
             super(props)
+        
             this.state = {
-                count: 0
-            };
+                 count: 0,
+            }
         }
-        componentDidMount(){
+        handleClick = () =>{
             this.setState({
-                count: this.state.count + 1
-         
+                count: this.state.count + 1,
             })
-            console.log(this.setState)
         }
         render(){
             return(
-                <Wrapcomponent count={this.state.count} {...this.props}/>
+                <Component CountNumber={this.state.count} handleClick={this.handleClick} />
             )
         }
     }
-    return HigherComponent
+    
 }
+export default HOC;
