@@ -17,7 +17,7 @@ import App2 from "./components/Context/csCon";
 import Child from "./components/Context/Child";
 import ToastExmp from "./components/Body/ToastExmp";
 import { ToastProvider } from "./components/Context/Toast/ToastProvider";
-import Button from "./components/Context/Toast/Button";
+
 function App() {
   const [taskList, setTaskList] = useState([
     // {
@@ -139,7 +139,7 @@ function App() {
       </div>
       <div className="row">
         <div className="col-md-4">
-          <UseEffect />
+          
         </div>
         <div className="col-md-4">
           <Pagination pagination={pagination} onPageChange={handlePageChange} />
@@ -167,7 +167,9 @@ function App() {
         <div className="col-md-6">
           <ToastExmp />
         </div>
-        <div className="col-md-6"></div>
+        <div className="col-md-6">
+          
+        </div>
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { Component } from "react";
 import MyContext from "./MyContext";
 
 export default class MyProvider extends Component {
-  state = { message: "" };
+  state = { message: ""  };
 
   render() {
     return (

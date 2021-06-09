@@ -13,6 +13,8 @@ function A() {
           onChange={(e) => setInputParent(e.target.value)}
           type="text"
         ></input>
+        <p>Context Con 2</p>
+        <C/>
       </div>
     </div>
   );
@@ -37,14 +39,18 @@ function C() {
   const [input, setInput] = useState(null);
 
   return (
-    <input
-      type="text"
-      value={input}
-      onChange={(e) => {
-        setInput(e.target.value);
-        onChange(e.target.value);
-      }}
-    />
+    <div>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => {
+          setInput(e.target.value);
+          onChange(e.target.value);
+        }}
+      />
+      <p>Context Con 1</p>
+      <B />
+    </div>
   );
 }
 
@@ -57,14 +63,12 @@ function App2() {
       <p>----------------</p>
       <div>
         <p>Context Cha</p>
-        <A />
+        <A></A>
 
         <p>------------------</p>
-        <p>Context Con 1</p>
-        <B />
+        
 
-        <p>Context Con 2</p>
-        <C />
+        
       </div>
       <p> ------------------</p>
     </MyContext.Provider>

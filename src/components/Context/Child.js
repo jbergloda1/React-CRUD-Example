@@ -7,13 +7,14 @@ export default class Child extends Component {
       <div>
         <p>Demo Context Class</p>
         <p>---------------</p>
-        <p> Context Cha</p>
+        
         <MyContext.Consumer>
           {(context) => (
             <div>
               <input type="text" value={context.state.message}></input>
             </div>
           )}
+         
         </MyContext.Consumer>
       </div>
     );
