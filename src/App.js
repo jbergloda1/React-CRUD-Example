@@ -17,58 +17,49 @@ import App2 from "./components/Context/csCon";
 import Child from "./components/Context/Child";
 import ToastExmp from "./components/Body/ToastExmp";
 import { ToastProvider } from "./components/Context/Toast/ToastProvider";
+const axios = require("axios");
 
 function App() {
-  const [taskList, setTaskList] = useState([
-    // {
-    //   id: 1,
-    //   name: "Tran Nhat Linh",
-    //   team: "DG3 Ext",
-    //   task: "Form React",
-    //   status: "Ongoing",
-    // },
-    // {
-    //   id: 2,
-    //   name: "Lee Zet",
-    //   team: "DG3 Ext",
-    //   task: "Context React",
-    //   status: "Ongoing",
-    // },
-    // {
-    //   id: 3,
-    //   name: "Tan Doan",
-    //   team: "DG3 Ext",
-    //   task: "Laravel ORM",
-    //   status: "Done",
-    // },
-    // {
-    //   id: 4,
-    //   name: "Phap Dinh",
-    //   team: "DG3 Ext",
-    //   task: "Vuex",
-    //   status: "Ongoing",
-    // },
-  ]);
+  const [list, setList] = useState([]);
   const [pagination, setPagination] = useState({
     _page: 1,
     _limit: 5,
     _totalRows: 10,
   });
   useEffect(() => {
-    const getTasks = async () => {
-      const taskFromServe = await fetchTasks();
-      setTaskList(taskFromServe);
-    };
-    getTasks();
-  }, []);
-  function handlePageChange(newPage) {
-    console.log(newPage);
-  }
-  const fetchTasks = async () => {
-    const res = await fetch("http://localhost:5000/taskList");
-    const data = await res.json();
-    return data;
-  };
+    axios({
+      method: "GET",
+      url: "http://localhost:8000/api/user",
+      data: null,
+    })
+      .then((res) => {
+        
+        setList(res.data)
+       
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },[]);
+
+  // useEffect(() => {
+  //   const getTasks = async () => {
+  //     const taskFromServe = await fetchTasks();
+  //     setList(taskFromServe);
+
+  //   };
+  //   getTasks();
+  // }, []);
+  // function handlePageChange(newPage) {
+  //   console.log(newPage);
+  // }
+  // const fetchTasks = async () => {
+  //   const res = await fetch("http://localhost:8000/api/user");
+  //   const data = await res.json();
+  //   console.log(list)
+  //   return data;
+
+  // };
   // function handleTodoFormSubmit(formValues) {
   //   console.log("Form submit: ", formValues);
   //   const newTask = {
@@ -80,18 +71,17 @@ function App() {
   //   setTaskList(newTaskList);
   //   // add new todo to current todo
   // }
-  const addTask = async (taskLists) => {
-    const res = await fetch("http://localhost:5000/taskList", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(taskLists),
-    });
-    const data = await res.json();
-    console.log(data);
-    setTaskList([...taskList, data]);
-  };
+  // const addTask = async (taskLists) => {
+  //   const res = await fetch("http://localhost:8000/api/user", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(taskLists),
+  //   });
+  //   const data = await res.json();
+  //   setList([...list, data]);
+  // };
   // function handleDelete(task){
   //   console.log(task);
   //   const index = taskList.findIndex(x => x.id === task.id)
@@ -99,12 +89,12 @@ function App() {
   //   newTaskList.splice(index, 1);
   //   setTaskList(newTaskList);
   // }
-  const handleDelete = async (id) => {
-    await fetch(`http://localhost:5000/taskList/${id}`, {
-      method: "DELETE",
-    });
-    setTaskList(taskList.filter((taskList) => taskList.id !== id));
-  };
+  // const handleDelete = async (id) => {
+  //   await fetch(`http://localhost:8000/api/user/${id}`, {
+  //     method: "DELETE",
+  //   });
+  //   setList(list.filter((taskList) => taskList.id !== id));
+  // };
 
   return (
     <div className="container">
@@ -113,13 +103,12 @@ function App() {
       <HeaderSlide />
       <ToastProvider>
         <BodyContent
-          taskLists={taskList}
-          onTaskListClick={handleDelete}
-          onAdd={addTask}
+          taskLists={list}
+          // onTaskListClick={handleDelete}
         />
       </ToastProvider>
 
-      <div className="row">
+      {/* <div className="row">
         <div className="col-md-4">
           <MyProvider>
             <Child />
@@ -138,9 +127,7 @@ function App() {
         </div>
       </div>
       <div className="row">
-        <div className="col-md-4">
-          
-        </div>
+        <div className="col-md-4"></div>
         <div className="col-md-4">
           <Pagination pagination={pagination} onPageChange={handlePageChange} />
         </div>
@@ -167,10 +154,8 @@ function App() {
         <div className="col-md-6">
           <ToastExmp />
         </div>
-        <div className="col-md-6">
-          
-        </div>
-      </div>
+        <div className="col-md-6"></div>
+      </div> */}
     </div>
   );
 }

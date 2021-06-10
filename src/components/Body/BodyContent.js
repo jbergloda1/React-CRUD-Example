@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import BodyItem from "./BodyItem";
 import BodyItemClass from "./BodyItemClass";
 import { FaEdit, FaTimes } from "react-icons/fa";
 import { useToast } from "../Context/Toast/Toast";
+const axios = require("axios");
 
 export default function BodyContent(props) {
   const { onAdd } = props;
@@ -14,6 +15,7 @@ export default function BodyContent(props) {
   const [status, setStatus] = useState("");
   const { error, warn, info, success } = useToast();
   const [checked, setChecked] = useState("");
+  const [list, setList] = useState([]);
   const { taskLists, onTaskListClick } = props;
   // function handleSubmit(e) {
   //   e.preventDefault();
@@ -25,6 +27,19 @@ export default function BodyContent(props) {
   //   };
   //   onSubmit(formValues);
   // }
+  useEffect(() => {
+    axios({
+      method: "GET",
+      url: "http://localhost:8000/api/user",
+      data: null,
+    })
+      .then((res) => {
+        setList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   const onSubmit = (e) => {
     e.preventDefault();
     try {
@@ -58,7 +73,11 @@ export default function BodyContent(props) {
       warn("Unchecked");
     }
   }
-
+  const showUser = () => {
+    const listUser = taskLists;
+    [listUser].map((items) => <p>{items.name}</p>);
+    return listUser;
+  };
   return (
     <div>
       <Accordion>
@@ -168,14 +187,15 @@ export default function BodyContent(props) {
                         </thead>
 
                         <tbody>
-                          {taskLists.map((task) => (
-                            <tr key={task.id}>
-                              <th scope="row">{task.id}</th>
-                              <td>{task.name}</td>
-                              <td>{task.team}</td>
-                              <td>{task.task}</td>
-                              <td>{task.status}</td>
-
+                          {list.map((item) => (
+                            <tr>
+                              <th key={item.id} scope="row">
+                                {item.id}
+                              </th>
+                              <td>{item.name}</td>
+                              <td>{item.dateofbirth}</td>
+                              <td>{item.email}</td>
+                              <td>{item.status}</td>
                               <td>
                                 <FaEdit
                                   onClick={() =>
@@ -185,7 +205,7 @@ export default function BodyContent(props) {
                                 />{" "}
                                 &nbsp;
                                 <FaTimes
-                                  onClick={() => handleDelete(task.id)}
+                                  onClick={() => handleDelete(item.id)}
                                   style={{ color: "red", cursor: "pointer" }}
                                 />
                               </td>
