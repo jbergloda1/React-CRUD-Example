@@ -3,12 +3,14 @@ import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { FormControl, Form, Button, Nav, NavDropdown } from "react-bootstrap";
 import About from "../About/About";
+import { Link } from 'react-router-dom';
+import BodyContent from "../Body/BodyContent";
 export default function Header() {
   return (
     <div>
       
       <Navbar fixed="top" bg="light" expand="lg">
-        <Navbar.Brand href="#">Navbar scroll</Navbar.Brand>
+        <Navbar.Brand><Link to="/">Navbar scroll</Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -16,20 +18,20 @@ export default function Header() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="/" component>
-              Trang Chủ
+            <Nav.Link>
+              <Link to="/shop">Shop</Link>
             </Nav.Link>
-            <Nav.Link path="/about" component={About}>
-              Giới Thiệu
+            <Nav.Link>
+              <Link to="/about">Giới Thiệu</Link>
             </Nav.Link>
             <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="/action-3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="/lien-he">Liên Hệ</NavDropdown.Item>
+              <NavDropdown.Item to="/action-3"><Link to="/action">Action</Link></NavDropdown.Item>
+              <NavDropdown.Item to="/lien-he">Liên Hệ</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="/san-pham">Sản Phẩm</NavDropdown.Item>
+              <NavDropdown.Item to="/san-pham">Sản Phẩm</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="/login">Đăng Nhập</Nav.Link>
-            <Nav.Link href="/register">Đăng Ký</Nav.Link>
+            <Nav.Link><Link to="/login">Đăng Nhập</Link></Nav.Link>
+            <Nav.Link to="/register">Đăng Ký</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <FormControl

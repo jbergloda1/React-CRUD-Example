@@ -2,23 +2,24 @@ import React, { useEffect, useState } from "react";
 
 export default function UseEffect() {
   const [count, setCount] = useState(0);
-  const [name,setName] = useState('');
+  const [time, setTime] = useState(count);
 
   useEffect(() => {
    
     console.log("UseEffect run!")
-    document.title = `Count is:  + ${count}`;
-  },[count]);
-  // function counter(){
-  //   setCount(count++);
-  // }
+    document.title = `Count is:  + ${count + time}`;
+  },[count, time]);
+
+  function counter(){
+    setTime(time + 1)
+  }
 
   return (
     <div>
       <p>USE EFFECT HOOK</p>
-      <h1 >{count}</h1>
-      <input value={name} type="text" onChange={(e) => setName(e.target.value)}></input>
-      <button onClick={() => setCount(count+1)}>Count Up</button>
+      <h1 >{count + time}</h1>
+      <button onClick={counter}>Count up</button>
+      <button onClick={() => setCount(Math.min(count+1, 3))}>Count</button>
     </div>
   );
 }

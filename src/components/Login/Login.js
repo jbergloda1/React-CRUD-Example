@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 
 class Login extends Component {
@@ -60,7 +60,7 @@ class Login extends Component {
     return (
       <div className="row">
         <div className="container">
-          <Form>
+          <Form onSubmit={this.onLogin}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
@@ -77,12 +77,12 @@ class Login extends Component {
               <Form.Check type="checkbox" label="Check me out" />
             </Form.Group>
             <Button variant="primary" type="submit">
-              Submit
+              <Link to="/Admin">Submit</Link>
             </Button>
           </Form>
         </div>
 
-        <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-push-3">
+        {/* <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-push-3">
           <form onSubmit={this.onLogin}>
             <legend>Dang Nhap</legend>
 
@@ -112,7 +112,7 @@ class Login extends Component {
               Dang Nhap
             </button>
           </form>
-        </div>
+        </div> */}
       </div>
     );
   }

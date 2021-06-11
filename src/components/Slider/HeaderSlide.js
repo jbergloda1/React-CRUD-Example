@@ -10,7 +10,7 @@ import slide3 from './img_nature_wide.jpg';
 export default function HeaderSlide(){
   return (
     <div>
-      <Carousel className = "mgtop">
+      <Carousel >
         <Carousel.Item>
           <img
             className="d-block w-100"
